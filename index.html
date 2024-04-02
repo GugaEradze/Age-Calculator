@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+</head>
+<body>
+
+    <div class = "container">
+        <div class = "calculator">
+            <h1>JavaScript<br><span>Age Calculator</span></h1>
+            <div class = "input-box">
+                <input type = "date" id = "date">
+                <button onclick = "calculateAge()">Calculate</button>
+            </div>
+            <p id = "result"></p>
+        </div>
+    </div>    
+
+<script>
+
+let userInput = document.getElementById("date");
+userInput.max = new Date().toISOString().split("T")[0];
+let result = document.getElementById("result");
+
+function calculateAge()
+{
+    let birthDate = new Date(userInput.value);
+
+    let birthDay = birthDate.getDate();
+    let birthMonth = birthDate.getMonth() + 1;
+    let birthYear = birthDate.getFullYear();
+
+    let today = new Date();
+
+    let day = today.getDate();
+    let month = today.getMonth() + 1;
+    let year = today.getFullYear();
+
+    let d, m, y;
+
+    y = year - birthYear;
+
+    if(month >= birthMonth)
+    {
+        m = month - birthMonth;
+    }
+    else
+    {
+        y--;
+        m = 12 + month - birthMonth;
+    }
+
+    if(day >= birthDay)
+    {
+        d = day -birthDay;
+    }
+    else
+    {
+        m--;
+        d = getDaysInMonth(birthYear, birthMonth) + day - birthDay;
+    }
+
+    if(m < 0)
+    {
+        m = 11;
+        y--;
+    }
+
+    result.innerHTML = `You Are <span>${y}</span> Years, <span>${m}</span> Months And <span>${d}</span> Days Old`;
+}
+
+function getDaysInMonth(year, month)
+{
+        return new Date(year, month, 0).getDate();
+}
+
+</script>
+
+</body>
+</html>
